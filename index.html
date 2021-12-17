@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interaction</title>
+  <style>
+    body {
+      background-color: #444;
+    }
+
+    #my-canvas {
+      display: block;
+      border: solid 1px black;
+    }
+
+    .color-button {
+      width: 100px;
+      height: 50px;
+      margin: 10px;
+    }
+
+    #red {
+      background-color: rgb(255,0,0);
+    }
+
+    #green {
+      background-color: rgb(0,255,0);
+    }
+
+    #blue {
+      background-color: rgb(0,0,255);
+    }
+
+  </style>
+  
+</head>
+<body>
+  <button id="red" class="color-button"></button>
+  <button id="green" class="color-button"></button>
+  <button id="blue" class="color-button"></button>
+  <canvas id="my-canvas"></canvas>
+  <script>
+
+    let fillColor = 'rgb(255, 0, 0)'
+
+    let redButton = document.getElementById('red');
+    let greenButton = document.getElementById('green');
+    let blueButton = document.getElementById('blue');
+
+    redButton.addEventListener('click', () => fillColor = 'rgba(255,0,0)');
+    greenButton.addEventListener('click', () => fillColor = 'rgba(0,255,0)');
+    blueButton.addEventListener('click', () => fillColor = 'rgba(0,0,255)');
+
+    let canvas = document.getElementById('my-canvas');
+    canvas.width = 800;
+    canvas.height = 600;
+
+    let context = canvas.getContext('2d');
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    canvas.addEventListener('mousedown', drawCircle);
+
+    function drawCircle(event) {
+      let rect = canvas.getBoundingClientRect();
+      let x = event.pageX - rect.left;
+      let y = event.pageY - rect.top;
+
+      context.fillStyle = fillColor;
+      context.beginPath();
+      context.arc(x, y, 25, 0, 2*Math.PI);
+      context.fill();
+    }
+
+  </script>
+</body>
+</html>
